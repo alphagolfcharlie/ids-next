@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum artcc_choices {
+  ZSE
+  ZOA
+  ZLA
+  ZLC
+  ZDV
+  ZAB
+  ZHU
+  ZFW
+  ZKC
+  ZMP
+  ZAU
+  ZOB
+  ZID
+  ZME
+  ZTL
+  ZJX
+  ZMA
+  ZDC
+  ZNY
+  ZBW
+  ZSU
+  ZVR
+  ZEG
+  ZWG
+  ZYZ
+  ZQM
+}
+
+enum route_source_choices {
+  custom
+  faa
+}
+
+// airports
+
+model Airport {
+  code String  @id
+  lat  Decimal
+  lon  Decimal
+}
+
+// external restrictions
+
+model Crossing {
+  id              Int           @id @default(autoincrement())
+  field           String
+  fix             String?
+  restriction     String
+  notes           String?
+  artcc_giving    artcc_choices
+  artcc_receiving artcc_choices
+}
+
+// internal crossings/restrictions
+
+model Enroute {
+  id        Int      @id @default(autoincrement())
+  fields    String[]
+  qualifier String?
+  areas     Int[]
+  rule      String
+}
+
+// used for both custom and FAA routes 
+
+model Route {
+  id       Int                  @id @default(autoincrement())
+  dep      String
+  dest     String
+  route    String
+  altitude String?
+  source   route_source_choices
+  notes    String?
+}
+
+// fix for query
+
+model Fix {
+  fix_id   String  @id
+  lat      Decimal
+  lon      Decimal
+  nav_name String? //navaid full name eg DJB = Dryer
+}
+
+// SID
+
+model Sid {
+  sid_code String   @id //eg KAYLN3.SMUUV
+  apts     String[]
+  fixes    String[]
+}
+
+// STAR
+
+model Star {
+  star_code String   @id // eg BOBTA.TPGUN2
+  apts      String[]
+  fixes     String[]
+}
+
+// Airway
+
+model Airway {
+  awy_code String   @id // e.g. J70
+  fixes    String[]
+}
