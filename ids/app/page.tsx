@@ -4,6 +4,7 @@ import { Tabs, TabsTrigger, TabsContent, TabsList} from "@/components/ui/tabs"
 import {RoutesForm} from "@/components/query/routesForm";
 import {CrossingsInput} from "@/components/query/crossingsForm";
 import {EnrouteInput} from "@/components/query/enroutesForm";
+import {StatusCards} from "@/components/query/statusCards";
 //import { CrossingsInput} from "@/app/ids/query/crossings";
 //import { EnrouteInput } from "@/app/ids/query/enroutes";
 //import { AirportStatusCards} from "@/app/ids/cards/statusCards";
@@ -37,10 +38,10 @@ export default function IDSPage() {
                         <TabsContent value="internalcrossings">
                             <EnrouteInput />
                         </TabsContent>
-                        {/*<TabsContent value="info">
-                            <AirportStatusCards />
+                        <TabsContent value="info">
+                            <StatusCards />
                         </TabsContent>
-                        <TabsContent value="waypoints">
+                        {/*<TabsContent value="waypoints">
                             <WaypointsDisplay />
                         </TabsContent>
                         */}
