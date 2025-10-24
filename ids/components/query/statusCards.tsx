@@ -97,7 +97,7 @@ export function StatusCards() {
                             key={atis.airport}
                             className="w-full border border-accent-foreground rounded p-4 bg-secondary dark:bg-secondary"
                         >
-                            <div className="flex justify-between items-center mb-2 p-2">
+                            <div className="flex justify-between items-center mb-2">
                                 <h2 className="text-lg font-semibold">{atis.airport}</h2>
                                 <div className="flex flex-wrap gap-2">
                                     {renderBadge(atis.approachType)}
@@ -110,7 +110,7 @@ export function StatusCards() {
                                 </p>
                             )}
                             <p>
-                                <strong className="mb-2">ATIS:</strong>{" "}
+                                <strong className="mb-2">ATIS:</strong> <br></br> {" "}
                                 {isExpanded ? combinedText : truncatedText}{" "}
                                 {combinedText.length > 100 && (
                                     <button

@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
     Pagination,
     PaginationContent,
@@ -130,6 +129,16 @@ export function RoutesForm() {
                                             {route.notes?.toLowerCase().includes("rnav") && (
                                                 <Badge variant="default" className="bg-rose-700 text-white">
                                                     RNAV
+                                                </Badge>
+                                            )}
+                                            {route.notes?.toLowerCase().includes("north") && (
+                                                <Badge variant="default" className="bg-sky-400 text-black">
+                                                    {route.dest} North Flow
+                                                </Badge>
+                                            )}
+                                            {route.notes?.toLowerCase().includes("south") && (
+                                                <Badge variant="default" className="bg-fuchsia-700 text-white">
+                                                    {route.dest} South Flow
                                                 </Badge>
                                             )}
                                         </div>
