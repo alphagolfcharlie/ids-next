@@ -13,6 +13,8 @@ import {
     PaginationNext,
 } from "@/components/ui/pagination";
 import { LoadingListSkeleton} from "@/components/ui/loadingListSkeleton";
+import {useRoutePlanner} from "@/components/map/routePlannerContext";
+import {MapPin} from "lucide-react";
 
 export function RoutesForm() {
     const [routeOrigin, setRouteOrigin] = useState("");
@@ -29,6 +31,8 @@ export function RoutesForm() {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentRoutes = routes.slice(indexOfFirstItem, indexOfLastItem);
     const totalPages = Math.ceil(routes.length / itemsPerPage);
+
+    const { queueRoute } = useRoutePlanner()
 
     const fetchRoutes = async () => {
         setRoutesLoading(true);
@@ -49,6 +53,14 @@ export function RoutesForm() {
             setRoutesLoading(false);
         }
     };
+
+    const handlePlotRoute = (route: any) => {
+        queueRoute({
+            route: route.route,
+            source: route.source
+        })
+    }
+
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -143,9 +155,18 @@ export function RoutesForm() {
                                             )}
                                         </div>
 
-                                        <p>
-                                            <strong>Route:</strong> {route.route}
-                                        </p>
+                                        <div className="flex items-center gap-3">
+                                            <p className="mb-0">
+                                                <strong>Route:</strong> {route.route}
+                                            </p>
+                                            <Button
+                                                size="sm"
+                                                onClick={() => handlePlotRoute(route)}
+                                            >
+                                                <MapPin className="h-4 w-4" />
+                                                Plot on Map
+                                            </Button>
+                                        </div>
                                         <p>
                                             <strong>Altitude:</strong> {route.altitude || "N/A"}
                                         </p>

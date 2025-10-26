@@ -23,7 +23,7 @@ const ICAOS = ['KDTW', 'KPIT', 'KBUF', 'KCLE'];
 let cache: { timestamp: number; data: ParsedAtis[] } | null = null;
 
 const FLOW_MAP = {
-    KDTW: { north: ['3L', '3R', '4L', '4R'], south: ['21L', '21R', '22L', '22R'] },
+    KDTW: { north: ['3L', '3R', '4L', '4R'], south: ['21L', '21R', '22L', '22R'], west: ['27R', '27L'] },
     KCLE: { north: ['6L', '6R'], south: ['24L', '24R'] },
     KPIT: { east: ['10L', '10C', '10R', '14'], west: ['28L', '28C', '28R', '32'] },
     KBUF: { east: ['5'], west: ['23'] },
