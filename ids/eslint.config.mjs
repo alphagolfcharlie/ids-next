@@ -18,10 +18,13 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "scripts/**",
     ],
 
     rules: {
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/exhaustive-deps": "off",
+        "react-hooks/exhaustive-deps": "off",
     },
   },
 

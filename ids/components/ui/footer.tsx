@@ -1,21 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {Plane} from "lucide-react";
-import Link from "next/link";
-import { ModeToggle } from "@/components/ui/modeToggle";
 
-import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { Separator } from "@/components/ui/separator";
-import {ExternalLink} from "lucide-react";
 
 export function Footer() {
     return (

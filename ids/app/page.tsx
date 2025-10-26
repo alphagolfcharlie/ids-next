@@ -7,6 +7,7 @@ import {EnrouteInput} from "@/components/query/enroutesForm";
 import {StatusCards} from "@/components/query/statusCards";
 import dynamic from "next/dynamic";
 import {RoutePlannerProvider} from "@/components/map/routePlannerContext";
+import {Waypoints} from "@/components/query/waypoints";
 
 //import { CrossingsInput} from "@/app/ids/query/crossings";
 //import { EnrouteInput } from "@/app/ids/query/enroutes";
@@ -51,10 +52,10 @@ export default function IDSPage() {
                             <TabsContent value="info">
                                 <StatusCards />
                             </TabsContent>
-                            {/*<TabsContent value="waypoints">
-                                <WaypointsDisplay />
+                            <TabsContent value="waypoints">
+                                <Waypoints />
                             </TabsContent>
-                            */}
+
                         </Tabs>
                     </div>
 

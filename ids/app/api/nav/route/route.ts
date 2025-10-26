@@ -3,7 +3,6 @@
 import {prisma} from "@/lib/prisma";
 import {NextRequest, NextResponse} from "next/server";
 import {Decimal} from "@prisma/client/runtime/library";
-import {decodeUriComponent} from "effect/Encoding";
 
 
 function isAirway(segment: string): boolean {
@@ -158,9 +157,11 @@ export async function GET(request: NextRequest) {
         // route param provided
 
         const route = decodeURIComponent(routeParam).trim();
-        const segments = route.split(/\s+/);
+        const segments = route
+            .split(/\s+/)
+            .map(segment => segment.toUpperCase());
 
-        let expandedFixes: string[] = [];
+        const expandedFixes: string[] = [];
 
         let i = 0;
 

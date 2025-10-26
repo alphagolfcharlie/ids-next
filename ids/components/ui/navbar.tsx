@@ -2,9 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { useEffect, useState } from "react";
 import {ExternalLink, CodeXml, MenuIcon, BookText} from "lucide-react"
-import { CalendarClockIcon, LandPlotIcon, FileSliders } from "lucide-react"
+import { LandPlotIcon, FileSliders } from "lucide-react"
 import { ModeToggle } from "@/components/ui/modeToggle"
 import {
     NavigationMenu,
@@ -13,7 +12,6 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import {
     Sheet,
@@ -28,13 +26,10 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Separator } from "@/components/ui/separator"
 
 
 export function Navbar() {
-    const [mounted, setMounted] = useState(false);
 
-    useEffect(() => setMounted(true), []);
     return (
         <div className="p-4 border-b border-sky-900 dark:border-sky-50 flex items-center justify-between z-10 bg-white dark:bg-black sticky top-0">
             {/* Left: Navigation Menu */}

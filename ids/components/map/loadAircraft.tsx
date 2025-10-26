@@ -59,7 +59,7 @@ export function LoadAircraft({ map}: { map: L.Map | null;}) {
                 if (!res.ok) throw new Error("Failed to fetch aircraft data")
 
                 const json = await res.json()
-                const data: Aircraft[] = (json.pilots ?? []).map((p: any) => ({
+                const data: Aircraft[] = (json.aircraft ?? []).map((p: any) => ({
                     callsign: p.callsign,
                     latitude: p.latitude,
                     longitude: p.longitude,
@@ -125,7 +125,7 @@ export function LoadAircraft({ map}: { map: L.Map | null;}) {
         }
 
         fetchAircraft()
-        const intervalId = setInterval(fetchAircraft, 60 * 1000)
+        const intervalId = setInterval(fetchAircraft, 60 * 1000) // refresh every minute
 
         return () => {
             clearInterval(intervalId)

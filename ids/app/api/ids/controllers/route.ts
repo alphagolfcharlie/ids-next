@@ -1,12 +1,29 @@
 import { NextResponse } from "next/server";
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL!,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+})
+
+type Controller = {
+    region: string;
+    artccId: string;
+    callsign: string;
+    frequencyMHz: number | null;
+    controllerName: string;
+    cid: string;
+    rating: string;
+    loginTime: string;
+}
+
 
 const VNAS_CONTROLLERS_URL = "https://live.env.vnas.vatsim.net/data-feed/controllers.json";
 const VATSIM_API_URL = "https://data.vatsim.net/v3/vatsim-data.json";
 
 
-const CACHE_TTL_MS = 60 * 1000; // TTL of 1 minute
-let cachedData: any = null;
-let lastFetchTime = 0;
+const CACHE_TTL_SECONDS = 60; // TTL of 1 minute
+
 
 const CALLSIGN_TO_ARTCC: Record<string, string> = { // for Canada
     TOR: "CZYZ",
@@ -22,10 +39,12 @@ const CANADA_REGEX = /^([A-Z]{3,4})_(?:\d{1,3}_)?(?:CTR|FSS)$/i;
 
 export async function GET() {
     try {
-        const now = Date.now();
-        const isCacheValid = cachedData && now - lastFetchTime < CACHE_TTL_MS;
-        if (isCacheValid) {
-            return NextResponse.json({ ...cachedData, source: "cache" });
+
+        const cached = await redis.get<Controller[]>("controllers");
+
+        if (cached) {
+            //serve from cache
+            return NextResponse.json({ source: "cache", count: cached.length, enroute: cached });
         }
 
         // --- Fetch both sources in parallel ---
@@ -51,7 +70,7 @@ export async function GET() {
             .flatMap((controller: any) =>
                 controller.positions
                     .filter((pos: any) => pos.isPrimary && pos.isActive)
-                    .map((pos: any) => ({
+                    .map(() => ({
                         region: "US",
                         artccId: controller.artccId,
                         callsign: controller.vatsimData?.callsign,
@@ -120,19 +139,17 @@ export async function GET() {
 
         // --- Merge all sources ---
         const combined = [...centerControllers, ...canadianControllers];
-        const payload = {
+
+        // --- Cache results ---
+
+        await redis.set("controllers", JSON.stringify(combined), { ex: CACHE_TTL_SECONDS });
+
+        return NextResponse.json({
             source: "live",
             count: combined.length,
             enroute: combined,
-            //tracon: traconControllers,
-            updatedAt: new Date().toISOString(),
-        };
+        });
 
-        // --- Cache results ---
-        cachedData = payload;
-        lastFetchTime = now;
-
-        return NextResponse.json(payload);
     } catch (error: any) {
         console.error("Error fetching controller data:", error);
         return NextResponse.json({ error: "Internal server error" }, { status: 500 });

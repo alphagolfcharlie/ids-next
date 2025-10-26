@@ -1,4 +1,10 @@
 import { NextResponse } from 'next/server';
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL!,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+})
 
 type AtisEntry = {
     airport: string;
@@ -19,8 +25,6 @@ type ParsedAtis = {
 
 const ICAOS = ['KDTW', 'KPIT', 'KBUF', 'KCLE'];
 
-// In-memory cache
-let cache: { timestamp: number; data: ParsedAtis[] } | null = null;
 
 const FLOW_MAP = {
     KDTW: { north: ['3L', '3R', '4L', '4R'], south: ['21L', '21R', '22L', '22R'], west: ['27R', '27L'] },
@@ -146,15 +150,19 @@ async function fetchAtis(): Promise<ParsedAtis[]> {
 // --- Main API route ---
 
 export async function GET() {
-    const now = Date.now();
-    if (cache && now - cache.timestamp < 2 * 60 * 1000) {
-        return NextResponse.json({ source: 'cache', data: cache.data }); // return cache if it was fetched less than 2 minutes ago
+    const cached = await redis.get<ParsedAtis[]>('info');
+
+    if (cached) {
+        //serve from cache
+        return NextResponse.json({ source: 'cache', data: cached });
     }
 
     try {
+
         const data = await fetchAtis();
-        cache = { timestamp: now, data };
+        await redis.set('info', JSON.stringify(data), { ex: 60 });
         return NextResponse.json({ source: 'live', data });
+
     } catch (err) {
         console.error('ATIS fetch error:', err);
         return NextResponse.json({ error: 'Failed to fetch ATIS' }, { status: 500 });

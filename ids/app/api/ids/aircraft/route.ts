@@ -1,39 +1,63 @@
 import {NextResponse} from "next/server";
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL!,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+})
+
+type Aircraft = {
+    callsign: string
+    latitude: number
+    longitude: number
+    altitude: number
+    groundspeed: number
+    heading: number
+    transponder: number
+    route: string
+    departure: string
+    arrival: string
+}
 
 const VATSIM_API_URL = "https://data.vatsim.net/v3/vatsim-data.json"
-const CACHE_TTL_MS = 60 * 1000; // 1 min TTL
+const CACHE_TTL_SECONDS = 60; // 1 min TTL
 
 // return distance in nmi
 
-function distToNm(lat1: number, lon1: number, lat2: number, lon2: number): number {
-    const toRad = (deg: number) => (deg * Math.PI) / 180;
+/**
+ * Calculate the great circle distance between two points on the earth's surface. Params all in radians.
+ * @param lat1 - lat of point 1
+ * @param lon1 - lon of point 1
+ * @param lat2 - lat of point 2
+ * @param lon2 - lon of point 2
+ * @returns distance in nautical miles (integer)
+ */
+
+
+function distance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const toRad = (deg: number) => (deg * Math.PI) / 180; // convert degrees to radians
     const R = 3440.065 // radius of the earth in nmi
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
+    const dLat = toRad(lat2 - lat1); // delta lat
+    const dLon = toRad(lon2 - lon1); // delta lon
     const a =
         Math.sin(dLat / 2) ** 2 +
-        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2; // use the haversine formula to account for curvature of the earth
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2; // use the haversine formula
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); // atan2: quadrant-aware version of atan
     return R * c;
 }
 
-// cache
-
-let cachedData: any = null;
-let lastFetchTime = 0;
 
 export async function GET() {
     try {
 
-        const now = Date.now();
-        const isCacheValid = cachedData && now - lastFetchTime < CACHE_TTL_MS;
+        const cached = await redis.get<Aircraft[]>("aircraft");
 
-        if (isCacheValid) {
+        if (cached) {
             // serve from cache
             return NextResponse.json({
-                source: "cache",
-                count: cachedData.length,
-                pilots: cachedData,
+                source: "cache", count:
+                cached.length,
+                aircraft: cached
             })
         }
 
@@ -49,10 +73,10 @@ export async function GET() {
         const data = await res.json();
 
         // Filter pilots within the requested distance
-        const nearbyPilots = data.pilots
+        const aircraft = data.pilots
             .filter((pilot: any) => {
                 if (typeof pilot.latitude !== "number" || typeof pilot.longitude !== "number") return false;
-                const dist = distToNm(lat, lon, pilot.latitude, pilot.longitude);
+                const dist = distance(lat, lon, pilot.latitude, pilot.longitude);
                 return dist <= distanceNM;
             })
             .map((pilot: any) => ({
@@ -70,14 +94,14 @@ export async function GET() {
 
         // update the cache
 
-        cachedData = nearbyPilots;
-        lastFetchTime = now;
+        await redis.set("aircraft", JSON.stringify(aircraft), { ex: CACHE_TTL_SECONDS})
 
         return NextResponse.json({
             source: "live",
-            count: nearbyPilots.length,
-            pilots: nearbyPilots
+            count: aircraft.length,
+            pilots: aircraft
         });
+
     } catch (error: any) {
         console.error("Error fetching nearby pilots:", error);
         return NextResponse.json({ error: "Internal server error" }, { status: 500 });

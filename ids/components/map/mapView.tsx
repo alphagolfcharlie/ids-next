@@ -1,22 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-//import { Slider } from "@/components/ui/slider";
+
 import { useTheme } from "@/components/theme-provider";
-//import { ShowRoutes } from "./disproutes";
-//import "leaflet/dist/leaflet.css";
+
 import { LoadAircraft } from "./loadAircraft";
 import {RoutePlanner} from "@/components/map/routePlotter";
-import type {Feature, FeatureCollection} from "geojson";
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { DialogDescription } from "@radix-ui/react-dialog";
+import type {Feature} from "geojson";
+
 
 export function MapView() {
     const { theme } = useTheme();
