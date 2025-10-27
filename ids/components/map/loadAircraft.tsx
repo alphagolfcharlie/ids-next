@@ -96,29 +96,38 @@ export function LoadAircraft({ map }: { map: L.Map | null }) {
                     if (aircraft.latitude && aircraft.longitude) {
                         const isZobDeparture = ZOB_AIRPORTS.includes(aircraft.departure);
                         const isZobArrival = ZOB_AIRPORTS.includes(aircraft.arrival);
+                        const isVFR = aircraft.transponder.toString() === "1200" && !aircraft.arrival;
 
                         let color = "#FF6F00";
-                        if (isZobArrival && isZobDeparture) color = "#FF1744";
+                        if (isVFR) color = "#ffffff";
+                        else if (isZobArrival && isZobDeparture) color = "#FF1744";
                         else if (isZobDeparture) color = "#00BFFF";
                         else if (isZobArrival) color = "#FFD700";
 
                         const icon = makeAircraftIcon(color, aircraft.heading ?? 0);
+
+                        // Prepare tooltip and popup content based on VFR or not
+                        const tooltipContent = isVFR
+                            ? `${aircraft.callsign}, ${aircraft.altitude}, VFR`
+                            : `${aircraft.callsign} ${aircraft.departure} ➔ ${aircraft.arrival}`;
+
+                        const popupContent = isVFR
+                            ? `<div style="font-size: 16px; font-weight: bold;">
+                                  ${aircraft.callsign} VFR - ${aircraft.altitude}
+                               </div>`
+                            : `<div style="font-size: 16px; font-weight: bold;">
+                                  ${aircraft.callsign} ${aircraft.departure} ➔ ${aircraft.arrival} - ${aircraft.altitude}
+                               </div>
+                               <div style="font-size: 11px; color: gray; margin-top: 5px; max-height: 100px; overflow-y: auto;">
+                                  ${aircraft.route}
+                               </div>`;
+
                         const marker = L.marker([aircraft.latitude, aircraft.longitude], {
                             icon,
                             pane: "aircraftPane",
                         })
-                            .bindTooltip(
-                                `${aircraft.callsign} ${aircraft.departure} ➔ ${aircraft.arrival}`,
-                                { sticky: true, direction: "top", pane: "aircraftTooltipPane" }
-                            )
-                            .bindPopup(`
-                                <div style="font-size: 16px; font-weight: bold;">
-                                  ${aircraft.callsign} ${aircraft.departure} ➔ ${aircraft.arrival} - ${aircraft.altitude}
-                                </div>
-                                <div style="font-size: 11px; color: gray; margin-top: 5px; max-height: 100px; overflow-y: auto;">
-                                  ${aircraft.route}
-                                </div>
-                            `);
+                            .bindTooltip(tooltipContent, { sticky: true, direction: "top", pane: "aircraftTooltipPane" })
+                            .bindPopup(popupContent);
 
                         marker.addTo(aircraftLayerGroup);
                     }
