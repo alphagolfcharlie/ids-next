@@ -99,7 +99,7 @@ export async function GET() {
         return NextResponse.json({
             source: "live",
             count: aircraft.length,
-            pilots: aircraft
+            aircraft: aircraft
         });
 
     } catch (error: any) {
