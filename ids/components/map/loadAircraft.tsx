@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import {useEffect, useRef} from "react"
 import L from "leaflet"
 
 type Aircraft = {
@@ -41,27 +41,40 @@ function makeAircraftIcon(color: string, heading: number = 0) {
     })
 }
 
-export function LoadAircraft({ map}: { map: L.Map | null;}) {
+export function LoadAircraft({ map }: { map: L.Map | null }) {
+    const layerRef = useRef<L.LayerGroup | null>(null);
+
     useEffect(() => {
-        if (!map) return
+        if (!map) return;
 
-        map.whenReady(() => {
+        if (!layerRef.current) {
+            // create pane + layer group once
+            if (!map.getPane("aircraftTooltipPane")) {
+                map.createPane("aircraftTooltipPane");
+                const pane = map.getPane("aircraftTooltipPane")!;
+                pane.style.zIndex = "4000";
+                pane.style.pointerEvents = "none";
+            }
 
-
-        const aircraftLayerGroup = L.layerGroup([], { pane: "aircraftPane" }).addTo(map)
-        const ZOB_AIRPORTS = ["KBUF","KCLE","KDTW","KPIT","KROC","KIAG","KERI","KBKL","KCGF","KCAK","KMFD","KPTK","KYIP","KDET","KTOL","KAGC"]
-        if (!map.getPane("aircraftTooltipPane")) {
-            map.createPane("aircraftTooltipPane")
-            map.getPane("aircraftTooltipPane")!.style.zIndex = "4000"
-            map.getPane("aircraftTooltipPane")!.style.pointerEvents = "none"
+            const group = L.layerGroup([], { pane: "aircraftPane" }).addTo(map);
+            layerRef.current = group;
         }
+
+        const aircraftLayerGroup = layerRef.current;
+        const ZOB_AIRPORTS = [
+            "KBUF", "KCLE", "KDTW", "KPIT", "KROC", "KIAG",
+            "KERI", "KBKL", "KCGF", "KCAK", "KMFD", "KPTK",
+            "KYIP", "KDET", "KTOL", "KAGC"
+        ];
+
+        let cancelled = false;
 
         const fetchAircraft = async () => {
             try {
-                const res = await fetch(`/api/ids/aircraft`)
-                if (!res.ok) throw new Error("Failed to fetch aircraft data")
+                const res = await fetch(`/api/ids/aircraft`);
+                if (!res.ok) throw new Error("Failed to fetch aircraft data");
 
-                const json = await res.json()
+                const json = await res.json();
                 const data: Aircraft[] = (json.aircraft ?? []).map((p: any) => ({
                     callsign: p.callsign,
                     latitude: p.latitude,
@@ -74,69 +87,59 @@ export function LoadAircraft({ map}: { map: L.Map | null;}) {
                     departure: p.departure,
                     arrival: p.arrival,
                 }));
-                console.log(data);
-                aircraftLayerGroup.clearLayers()
 
-                data.forEach((aircraft) =>{
+                if (cancelled || !map.hasLayer(aircraftLayerGroup)) return;
 
+                aircraftLayerGroup.clearLayers();
 
+                data.forEach((aircraft) => {
                     if (aircraft.latitude && aircraft.longitude) {
-                        const isZobDeparture = ZOB_AIRPORTS.includes(aircraft.departure)
-                        const isZobArrival = ZOB_AIRPORTS.includes(aircraft.arrival)
-                        // pick a color (customize as you like)
-                        let color = "#FF6F00"
+                        const isZobDeparture = ZOB_AIRPORTS.includes(aircraft.departure);
+                        const isZobArrival = ZOB_AIRPORTS.includes(aircraft.arrival);
 
-                        if (isZobArrival && isZobDeparture) {
-                            color = "#FF1744" // both
-                        } else if (isZobDeparture) {
-                            color = "#00BFFF" // departure
-                        } else if (isZobArrival) {
-                            color = "#FFD700" // arrival
-                        }
+                        let color = "#FF6F00";
+                        if (isZobArrival && isZobDeparture) color = "#FF1744";
+                        else if (isZobDeparture) color = "#00BFFF";
+                        else if (isZobArrival) color = "#FFD700";
 
-                        const icon = makeAircraftIcon(color, aircraft.heading ?? 0)
-
+                        const icon = makeAircraftIcon(color, aircraft.heading ?? 0);
                         const marker = L.marker([aircraft.latitude, aircraft.longitude], {
                             icon,
                             pane: "aircraftPane",
                         })
-
-                        marker
                             .bindTooltip(
                                 `${aircraft.callsign} ${aircraft.departure} ➔ ${aircraft.arrival}`,
-                                {
-                                    sticky: true,
-                                    direction: "top",
-                                    pane: "aircraftTooltipPane",
-                                }
+                                { sticky: true, direction: "top", pane: "aircraftTooltipPane" }
                             )
                             .bindPopup(`
-                <div style="font-size: 16px; font-weight: bold;">
-                  ${aircraft.callsign} ${aircraft.departure} ➔ ${aircraft.arrival} - ${aircraft.altitude}
-                </div>
-                <div style="font-size: 11px; color: gray; margin-top: 5px; max-height: 100px; overflow-y: auto;">
-                  ${aircraft.route}
-                </div>
-              `)
+                                <div style="font-size: 16px; font-weight: bold;">
+                                  ${aircraft.callsign} ${aircraft.departure} ➔ ${aircraft.arrival} - ${aircraft.altitude}
+                                </div>
+                                <div style="font-size: 11px; color: gray; margin-top: 5px; max-height: 100px; overflow-y: auto;">
+                                  ${aircraft.route}
+                                </div>
+                            `);
 
-                        marker.addTo(aircraftLayerGroup)
+                        marker.addTo(aircraftLayerGroup);
                     }
-                })
-            } catch (error) {
-                console.error("Error fetching aircraft data:", error)
+                });
+            } catch (err) {
+                console.error("Error fetching aircraft data:", err);
             }
-        }
+        };
 
-        fetchAircraft()
-        const intervalId = setInterval(fetchAircraft, 60 * 1000) // refresh every minute
+        fetchAircraft();
+        const intervalId = setInterval(fetchAircraft, 60 * 1000);
 
         return () => {
-            clearInterval(intervalId)
-            aircraftLayerGroup.clearLayers()
-            map.removeLayer(aircraftLayerGroup)
-        }
-        });
-    }, [map])
+            cancelled = true;
+            clearInterval(intervalId);
+            if (layerRef.current) {
+                map.removeLayer(layerRef.current);
+                layerRef.current = null;
+            }
+        };
+    }, [map]);
 
-    return null
+    return null;
 }

@@ -16,28 +16,10 @@ export function MapView() {
     const tileLayerRef = useRef<L.TileLayer | null>(null);
 
     const [mapReady, setMapReady] = useState(false);
-    //const [showTraffic, setShowTraffic] = useState(true);
-    //const [showSectors, setShowSectors] = useState(true);
-    //const [showTracons, setShowTracons] = useState(true);
+
 
     const artccLayerRef = useRef<L.LayerGroup | null>(null);
-    //const traconLayerRef = useRef<L.LayerGroup | null>(null);
 
-    //const [radius, setRadius] = useState<number>(400);
-    //const [pendingRadius, setPendingRadius] = useState<number>(radius);
-    //const [filterGround, setFilterGround] = useState(true);
-
-   // const [open, setOpen] = useState(false);
-
-    //function onConfirm() {
-    //    setRadius(pendingRadius);
-    //    setOpen(false);
-    //}
-
-    //function onDisregard() {
-    //    setPendingRadius(radius);
-    //    setOpen(false);
-    //}
 
     const normalize = (id: string | undefined) => (id ?? "").replace(/^K/, "").trim().toUpperCase();
 
