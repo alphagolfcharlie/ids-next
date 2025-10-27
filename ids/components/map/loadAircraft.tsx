@@ -45,6 +45,9 @@ export function LoadAircraft({ map}: { map: L.Map | null;}) {
     useEffect(() => {
         if (!map) return
 
+        map.whenReady(() => {
+
+
         const aircraftLayerGroup = L.layerGroup([], { pane: "aircraftPane" }).addTo(map)
         const ZOB_AIRPORTS = ["KBUF","KCLE","KDTW","KPIT","KROC","KIAG","KERI","KBKL","KCGF","KCAK","KMFD","KPTK","KYIP","KDET","KTOL","KAGC"]
         if (!map.getPane("aircraftTooltipPane")) {
@@ -132,6 +135,7 @@ export function LoadAircraft({ map}: { map: L.Map | null;}) {
             aircraftLayerGroup.clearLayers()
             map.removeLayer(aircraftLayerGroup)
         }
+        });
     }, [map])
 
     return null
