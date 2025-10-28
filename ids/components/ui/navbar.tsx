@@ -102,75 +102,24 @@ export function Navbar() {
                         </SheetHeader>
 
                         <div className="mt-4 px-3 space-y-2">
-                            <Link
-                                href="/"
-                                className="block w-full px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                            >
-                                Home
-                            </Link>
 
                             <Accordion type="single" className="space-y-1" collapsible>
                                 {/* === Pilots === */}
                                 <AccordionItem value="pilots">
                                     <AccordionTrigger className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800">
-                                        <p>Pilots</p>
+                                        <p>External Links</p>
                                     </AccordionTrigger>
                                     <AccordionContent className="pl-4 space-y-1 mt-1">
                                         {[
-                                            { href: "/pilots/feedback", label: "Controller Feedback" },
-                                            { href: "/pilots/briefing", label: "Pilot Briefing" },
-                                            { href: "/pilots/routing", label: "ATC Routing" },
-                                        ].map((item) => (
+                                            { href: "https://refs.clevelandcenter.org", label: "References Site" },
+                                            { href: "https://clevelandcenter.org/splits", label: "Active Split" },
+                                            { href: "https://clevelandcenter.org/downloads", label: "Downloads & Docs" },
+                                            //{ href: "https://github.com", label: "GitHub" },
+                                            ].map((item) => (
                                             <SheetTrigger key={item.href} asChild>
                                                 <Link
                                                     href={item.href}
                                                     className="block w-full px-3 py-2 rounded-md text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                                                >
-                                                    {item.label}
-                                                </Link>
-                                            </SheetTrigger>
-                                        ))}
-                                    </AccordionContent>
-                                </AccordionItem>
-
-                                {/* === Controllers === */}
-                                <AccordionItem value="controllers">
-                                    <AccordionTrigger className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800">
-                                        <p>Controllers</p>
-                                    </AccordionTrigger>
-                                    <AccordionContent className="pl-4 space-y-1 mt-1">
-                                        {[
-                                            { href: "/roster", label: "Controller Roster" },
-                                            { href: "/ids", label: "IDS" },
-                                            { href: "https://refs.clevelandcenter.org", label: "References", external: true },
-                                        ].map((item) => (
-                                            <SheetTrigger key={item.href} asChild>
-                                                <Link
-                                                    href={item.href}
-                                                    target={item.external ? "_blank" : "_self"}
-                                                    className="block w-full px-3 py-2 rounded-md text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                                                >
-                                                    {item.label}
-                                                </Link>
-                                            </SheetTrigger>
-                                        ))}
-                                    </AccordionContent>
-                                </AccordionItem>
-
-                                {/* === Events === */}
-                                <AccordionItem value="events">
-                                    <AccordionTrigger className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800">
-                                        <p>Events</p>
-                                    </AccordionTrigger>
-                                    <AccordionContent className="pl-4 space-y-1 mt-1">
-                                        {[
-                                            { href: "/events", label: "Upcoming Events" },
-                                            { href: "/ids", label: "Active Split" },
-                                        ].map((item) => (
-                                            <SheetTrigger key={item.href} asChild>
-                                                <Link
-                                                    href={item.href}
-                                                    className="block w-full px-4 py-2 rounded-md text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                                                 >
                                                     {item.label}
                                                 </Link>

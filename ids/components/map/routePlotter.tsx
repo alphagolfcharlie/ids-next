@@ -254,7 +254,7 @@ export function RoutePlanner({ map }: { map: L.Map | null }) {
             {routes.length > 0 && (
                 <div className="space-y-2">
                     <Label>Displayed Routes</Label>
-                    <div className="space-y-2 max-h-48 overflow-y-auto">
+                    <div className="space-y-2 max-h-128 overflow-y-auto">
                         {routes.map((route) => (
                             <div
                                 key={route.id}

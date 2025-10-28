@@ -9,16 +9,6 @@ import dynamic from "next/dynamic";
 import {RoutePlannerProvider} from "@/components/map/routePlannerContext";
 import {Waypoints} from "@/components/query/waypoints";
 
-//import { CrossingsInput} from "@/app/ids/query/crossings";
-//import { EnrouteInput } from "@/app/ids/query/enroutes";
-//import { AirportStatusCards} from "@/app/ids/cards/statusCards";
-//import { WaypointsDisplay } from "@/app/ids/query/waypoints";
-//import dynamic from "next/dynamic";
-
-//const MapView = dynamic(
-//    () => import("@/app/ids/map/mapview").then((mod) => mod.MapView),
-//    { ssr: false }
-//);
 
 const MapView = dynamic(
     () => import("@/components/map/mapView").then((mod) => mod.MapView),
@@ -33,11 +23,11 @@ export default function IDSPage() {
                     <div className="w-full md:w-1/2 p-4 md:p-6 overflow-y-auto space-y-10 border-r">
                         <Tabs defaultValue="routing">
                             <TabsList className="w-full justify-center">
-                                <TabsTrigger value="routing">C/D Routing</TabsTrigger>
-                                <TabsTrigger value="crossings">External LOAs</TabsTrigger>
-                                <TabsTrigger value="internalcrossings">Internal LOAs</TabsTrigger>
-                                <TabsTrigger value="info">Airport Info</TabsTrigger>
-                                <TabsTrigger value="waypoints">ROTG/Headings</TabsTrigger>
+                                <TabsTrigger value="routing">Routing</TabsTrigger>
+                                <TabsTrigger value="crossings">Ext. LOAs</TabsTrigger>
+                                <TabsTrigger value="internalcrossings">Int. LOAs</TabsTrigger>
+                                <TabsTrigger value="info">ATIS/WX</TabsTrigger>
+                                <TabsTrigger value="waypoints">ROTG</TabsTrigger>
                             </TabsList>
                             <br />
                             <TabsContent value="routing">
