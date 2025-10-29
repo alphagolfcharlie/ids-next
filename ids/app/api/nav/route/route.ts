@@ -136,6 +136,8 @@ async function getFixLatLon(
 
 export async function GET(request: NextRequest) {
 
+    const errors: string[] = [];
+
     try {
 
         const searchParams = request.nextUrl.searchParams;
@@ -170,10 +172,18 @@ export async function GET(request: NextRequest) {
         if (segments.length >= 2 && isProcedure(segments[0])) {
             const sidName = segments[0]
             const transition = segments[1]
-            const sidFixes = await expandSID(`${sidName}.${transition}`);
-            expandedFixes.push(...sidFixes); // spread operator - push fixes
-            i = 2 // skip first 2 segments
+            try {
+                const sidFixes = await expandSID(`${sidName}.${transition}`);
+                expandedFixes.push(...sidFixes); // spread operator - push fixes
+                i = 2 // skip first 2 segments
+            } catch (err: any) {
+                errors.push(`SID Error: ${err.message}. Skipping to transition waypoint '${transition}'.`);
+                // Start from the transition waypoint
+                expandedFixes.push(transition);
+                i = 2;
+            }
         }
+
 
 
         // route body
@@ -189,13 +199,21 @@ export async function GET(request: NextRequest) {
             }
 
             if (isAirway(current) && i > 0 && i < segments.length - 1) {
-                const airwayFixes = await expandAirway(current, segments[i-1], segments[i+1]);
-                expandedFixes.pop(); // avoid duplicate start fix
-                expandedFixes.push(...airwayFixes);
-                i++ // skip the airway end fix
+                try {
+                    const airwayFixes = await expandAirway(current, segments[i-1], segments[i+1]);
+                    expandedFixes.pop(); // avoid duplicate start fix
+                    expandedFixes.push(...airwayFixes);
+                    i++ // skip the airway end fix
+                } catch (err: any) {
+                    errors.push(`Airway Error: ${err.message}. Querying fixes '${segments[i-1]}' and '${segments[i+1]}' instead.`);
+                    // Don't pop the previous fix, just add the end fix
+                    expandedFixes.push(segments[i+1]);
+                    i++; // skip the airway end fix
+                }
             } else {
                 expandedFixes.push(current);
             }
+
         }
 
 
@@ -204,9 +222,15 @@ export async function GET(request: NextRequest) {
         if (segments.length >= 2 && isProcedure(segments[segments.length - 1])) {
             const starName = segments[segments.length - 1]
             const transition = segments[segments.length - 2]
-            const starFixes = await expandSTAR(`${transition}.${starName}`);
-            expandedFixes.push(...starFixes);
+            try {
+                const starFixes = await expandSTAR(`${transition}.${starName}`);
+                expandedFixes.push(...starFixes);
+            } catch (err: any) {
+                errors.push(`STAR Error: ${err.message}. Route ends at transition waypoint '${transition}'.`);
+                // Transition waypoint is already in expandedFixes from route body
+            }
         }
+
 
         // convert to lat/lon
 
@@ -214,14 +238,26 @@ export async function GET(request: NextRequest) {
         const uniqueFixes = Array.from(new Set(expandedFixes));
         const allCoords = await getFixLatLon(uniqueFixes); // returns array
 
-        // Map back to route order
-        const fixesWithCoords = expandedFixes.map(fix => {
-            const coords = allCoords.find(c => c.fix === fix);
-            if (!coords) throw new Error(`Fix '${fix}' not found in database`);
-            return coords;
+        // Map back to route order, skip fixes that don't exist
+        const fixesWithCoords = expandedFixes
+            .map(fix => {
+                const coords = allCoords.find(c => c.fix === fix);
+                if (!coords) {
+                    errors.push(`Waypoint Error: Fix '${fix}' not found in database. Skipping.`);
+                    return null;
+                }
+                return coords;
+            })
+            .filter(coord => coord !== null) as { fix: string; lat: number; lon: number }[];
+
+
+        // Return response with fixes and any errors
+        return NextResponse.json({
+            route,
+            fixes: fixesWithCoords,
+            errors: errors.length > 0 ? errors : undefined
         });
 
-        return NextResponse.json({ route, fixes: fixesWithCoords });
 
     } catch (err: any) {
         console.error("Route expansion error:", err);

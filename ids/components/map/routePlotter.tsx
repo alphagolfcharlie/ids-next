@@ -22,6 +22,13 @@ type RouteData = {
     color: string
 }
 
+type RouteResponse = {
+    route: string
+    fixes: Fix[]
+    errors?: string[]
+}
+
+
 const DEFAULT_COLORS = [
     "#FF6F00", // orange
     "#2196F3", // blue
@@ -135,8 +142,8 @@ export function RoutePlanner({ map }: { map: L.Map | null }) {
         layerGroup.addTo(map)
         routeLayersRef.current.set(routeData.id, layerGroup)
 
-        // Fit bounds to show the entire route
-        if (routeData.fixes.length > 0) {
+        // Fit bounds to show the entire route if there are multiple fixes
+        if (routeData.fixes.length > 1) {
             const bounds = L.latLngBounds(
                 routeData.fixes.map((fix) => [fix.lat, fix.lon])
             )
@@ -161,11 +168,20 @@ export function RoutePlanner({ map }: { map: L.Map | null }) {
                 throw new Error("Failed to fetch route data")
             }
 
-            const data = await response.json()
+            const data: RouteResponse = await response.json()
 
             if (!data.fixes || data.fixes.length === 0) {
                 toast.error("No fixes found for this route")
                 return
+            }
+
+            // Display errors if any
+            if (data.errors && data.errors.length > 0) {
+                data.errors.forEach((error) => {
+                    toast.warning(error, {
+                        duration: 5000,
+                    })
+                })
             }
 
             const newRoute: RouteData = {
@@ -178,7 +194,11 @@ export function RoutePlanner({ map }: { map: L.Map | null }) {
             setRoutes((prev) => [...prev, newRoute])
             plotRoute(newRoute)
 
-            toast.success(`Route "${data.route}" added successfully`)
+            if (data.errors && data.errors.length > 0) {
+                toast.warning(`Route "${data.route}" added partially / with warnings`)
+            } else {
+                toast.success(`Route "${data.route}" added successfully`)
+            }
 
             // Cycle to next color
             const currentIndex = DEFAULT_COLORS.indexOf(selectedColor)
@@ -191,6 +211,7 @@ export function RoutePlanner({ map }: { map: L.Map | null }) {
             setLoading(false)
         }
     }
+
 
 
     const handleAddRoute = async () => {
