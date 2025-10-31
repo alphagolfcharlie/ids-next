@@ -2,7 +2,7 @@ import fs from 'fs';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/ids.nav.json';
+const filePath: string = 'data/jsons/nav.json';
 
 interface Nav {
     NAV_ID: string;

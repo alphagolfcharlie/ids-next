@@ -3,10 +3,10 @@ import {PrismaClient, route_source_choices} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/ids.faa.json';
+const filePath: string = 'data/jsons/faa.json';
 
 interface FaaRoute {
-    Orig: string;
+    Origin: string;
     RouteString: string;
     Dest: string;
     Aircraft: string | null;
@@ -22,7 +22,7 @@ export async function loadFaaRoutes() {
         const data: FaaRoute[] = JSON.parse(jsonString);
 
         const sanitised = data.map(item => ({
-            dep: item.Orig,
+            dep: item.Origin,
             dest: item.Dest,
             route: item.RouteString,
             altitude: null,
@@ -31,7 +31,7 @@ export async function loadFaaRoutes() {
         }));
 
 
-        // await prisma.route.deleteMany();
+        console.log("All routes deleted!")
 
         const result = await prisma.route.createMany({
             data: sanitised,

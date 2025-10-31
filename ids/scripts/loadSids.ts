@@ -3,7 +3,7 @@ import {PrismaClient} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/ids.sids.json';
+const filePath: string = 'data/jsons/sid.json';
 
 interface Sid {
     sid_name: string;
@@ -27,6 +27,8 @@ export async function loadSids() {
 
 
         await prisma.sid.deleteMany(); // delete all existing SIDs
+
+        console.log("All SIDs deleted!")
 
         const result = await prisma.sid.createMany({
             data: sanitised,

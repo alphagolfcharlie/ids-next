@@ -3,7 +3,7 @@ import {PrismaClient} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/ids.awy.json';
+const filePath: string = 'data/jsons/awy.json';
 
 interface Awy {
     AWY_ID: string;
@@ -24,7 +24,9 @@ export async function loadAirways() {
         }));
 
 
-        // await prisma.route.deleteMany();
+        await prisma.airway.deleteMany();
+
+        console.log("All airways deleted!")
 
         const result = await prisma.airway.createMany({
             data: sanitised,

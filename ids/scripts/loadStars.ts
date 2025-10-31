@@ -3,7 +3,7 @@ import {PrismaClient} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/ids.stars.json';
+const filePath: string = 'data/jsons/star.json';
 
 interface Star {
     star_name: string;
@@ -27,6 +27,8 @@ export async function loadStars() {
 
 
         await prisma.star.deleteMany(); // delete all existing STARs
+
+        console.log("All stars deleted!")
 
         const result = await prisma.star.createMany({
             data: sanitised,

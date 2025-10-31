@@ -3,7 +3,7 @@ import {PrismaClient, route_source_choices} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/ids.routes.json';
+const filePath: string = 'data/jsons/static/ids.routes.json';
 
 interface RouteData {
     origin: string;
@@ -33,7 +33,7 @@ export async function loadRoutes() {
 
         console.log(sanitised);
 
-        // await prisma.route.deleteMany();
+        await prisma.route.deleteMany();
 
         const result = await prisma.route.createMany({
             data: sanitised,
@@ -44,3 +44,4 @@ export async function loadRoutes() {
     });
 
 }
+

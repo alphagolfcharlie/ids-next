@@ -3,7 +3,7 @@ import {PrismaClient} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/ids.fixes.json';
+const filePath: string = 'data/jsons/fixes.json';
 
 interface Fix {
     FIX_ID: string;
@@ -26,7 +26,9 @@ export async function loadFixes() {
         }));
 
 
-        // await prisma.route.deleteMany();
+        await prisma.fix.deleteMany();
+
+        console.log("All fixes deleted!")
 
         const result = await prisma.fix.createMany({
             data: sanitised,

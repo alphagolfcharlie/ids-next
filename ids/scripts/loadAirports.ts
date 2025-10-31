@@ -1,7 +1,7 @@
 import fs from 'fs';
 import {prisma} from "@/lib/prisma";
 
-const filePath: string = 'data/jsons/ids.apt.json';
+const filePath: string = 'data/jsons/apt.json';
 
 interface Airport {
     ARPT_ID: string;
@@ -23,7 +23,9 @@ export async function loadAirports() {
             lon: item.LONG_DECIMAL,
         }));
 
-        // await prisma.route.deleteMany();
+        await prisma.airport.deleteMany();
+
+        console.log("All airports deleted!")
 
         const result = await prisma.airport.createMany({
             data: sanitised,
