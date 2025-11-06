@@ -66,6 +66,8 @@ model Crossing {
   notes           String?
   artcc_giving    artcc_choices
   artcc_receiving artcc_choices
+
+  @@index([field])
 }
 
 // internal crossings/restrictions
@@ -76,6 +78,9 @@ model Enroute {
   qualifier String?
   areas     Int[]
   rule      String
+
+  @@index([fields])
+  @@index([fields, areas])
 }
 
 // used for both custom and FAA routes 
@@ -88,6 +93,8 @@ model Route {
   altitude String?
   source   route_source_choices
   notes    String?
+
+  @@index([dep, dest])
 }
 
 // fix for query
