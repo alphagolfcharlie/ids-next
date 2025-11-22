@@ -76,7 +76,7 @@ export function RoutesForm() {
                 <Input
                     id="routeOrigin"
                     type="text"
-                    placeholder="e.g. DTW"
+                    placeholder="e.g. DTW or KDTW"
                     value={routeOrigin}
                     onChange={(e) => setRouteOrigin(e.target.value.toUpperCase())}
                     className="mt-2 border border-gray-300 dark:border-gray-700 focus:border-gray-500 focus:ring-1 focus:ring-gray-300 rounded-md"
@@ -89,7 +89,7 @@ export function RoutesForm() {
                 <Input
                     id="routeDestination"
                     type="text"
-                    placeholder="e.g. ORD"
+                    placeholder="e.g. ORD or KORD"
                     value={routeDestination}
                     onChange={(e) => setRouteDestination(e.target.value.toUpperCase())}
                     className="mt-2 border border-gray-300 dark:border-gray-700 focus:border-gray-500 focus:ring-1 focus:ring-gray-300 rounded-md"

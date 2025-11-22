@@ -4,7 +4,7 @@ import {prisma} from "@/lib/prisma";
 export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams;
-    const field = searchParams.get("field"); // eg /api/crossings?field=DTW
+    let field = searchParams.get("field"); // eg /api/crossings?field=DTW
 
     // field paramter not provided
 
@@ -18,7 +18,11 @@ export async function GET(request: NextRequest) {
         )
     }
 
-    // field parameter provided 
+    // field parameter provided
+
+    if (field.length === 4) {
+        field = field.substring(1);
+    }
 
     const crossings = await prisma.crossing.findMany({
         where: {

@@ -68,7 +68,7 @@ export function EnrouteInput() {
                 <Input
                     id="field"
                     type="text"
-                    placeholder="e.g. BUF"
+                    placeholder="e.g. BUF or KBUF"
                     value={field}
                     onChange={(e) => setField(e.target.value.toUpperCase())}
                     className="mt-2 border border-gray-300 dark:border-gray-700 focus:border-gray-500 focus:ring-1 focus:ring-gray-300 rounded-md"

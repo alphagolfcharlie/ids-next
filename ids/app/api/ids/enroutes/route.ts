@@ -4,7 +4,7 @@ import {NextRequest} from "next/server";
 export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams;
-    const field = searchParams.get("field");
+    let field = searchParams.get("field");
     const areaParam = searchParams.get("area");
     const area = areaParam ? Number(areaParam) : undefined;
 
@@ -20,7 +20,12 @@ export async function GET(request: NextRequest) {
         )
     }
 
+
     // field parameter provided
+
+    if (field.length === 4) {
+        field = field.substring(1);
+    }
 
     const enroutes = await prisma.enroute.findMany({
         where: {

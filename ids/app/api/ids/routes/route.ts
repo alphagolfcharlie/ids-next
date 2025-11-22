@@ -4,8 +4,8 @@ import {NextRequest} from "next/server";
 export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams;
-    const dep = searchParams.get("dep");
-    const dest = searchParams.get("dest");
+    let dep = searchParams.get("dep");
+    let dest = searchParams.get("dest");
 
     // dep or dest not provided
 
@@ -17,6 +17,14 @@ export async function GET(request: NextRequest) {
                 headers: { "Content-Type": "application/json" },
             }
         )
+    }
+
+    if (dest.length === 4) {
+        dest = dest.slice(1);
+    }
+
+    if (dep.length === 4) {
+        dep = dep.slice(1);
     }
 
     // dep&dest parameter provided
