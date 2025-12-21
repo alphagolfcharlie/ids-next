@@ -3,7 +3,9 @@ import {PrismaClient} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/fixes.json';
+const airac = process.env.AIRAC;
+
+const filePath: string = `data/jsons/${airac}/fixes.json`;
 
 interface Fix {
     FIX_ID: string;

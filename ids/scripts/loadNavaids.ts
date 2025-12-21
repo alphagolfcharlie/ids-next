@@ -2,7 +2,9 @@ import fs from 'fs';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/nav.json';
+const airac = process.env.AIRAC;
+
+const filePath: string = `data/jsons/${airac}/nav.json`;
 
 interface Nav {
     NAV_ID: string;

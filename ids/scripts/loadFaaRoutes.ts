@@ -3,10 +3,13 @@ import {PrismaClient, route_source_choices} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/faa.json';
+const airac = process.env.AIRAC;
+
+const filePath: string = `data/jsons/${airac}/faa.json`;
+
 
 interface FaaRoute {
-    Origin: string;
+    Orig: string;
     RouteString: string;
     Dest: string;
     Aircraft: string | null;
@@ -22,7 +25,7 @@ export async function loadFaaRoutes() {
         const data: FaaRoute[] = JSON.parse(jsonString);
 
         const sanitised = data.map(item => ({
-            dep: item.Origin,
+            dep: item.Orig,
             dest: item.Dest,
             route: item.RouteString,
             altitude: null,

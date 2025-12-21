@@ -3,7 +3,9 @@ import {PrismaClient} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/sid.json';
+const airac = process.env.AIRAC;
+
+const filePath: string = `data/jsons/${airac}/sid.json`;
 
 interface Sid {
     sid_name: string;

@@ -3,7 +3,10 @@ import {PrismaClient} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/star.json';
+const airac = process.env.AIRAC;
+
+const filePath: string = `data/jsons/${airac}/star.json`;
+
 
 interface Star {
     star_name: string;

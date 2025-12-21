@@ -1,7 +1,9 @@
 import fs from 'fs';
 import {prisma} from "@/lib/prisma";
 
-const filePath: string = 'data/jsons/apt.json';
+const airac = process.env.AIRAC;
+
+const filePath: string = `data/jsons/${airac}/apt.json`;
 
 interface Airport {
     ARPT_ID: string;

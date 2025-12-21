@@ -3,7 +3,9 @@ import {PrismaClient} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/awy.json';
+const airac = process.env.AIRAC;
+
+const filePath: string = `data/jsons/${airac}/awy.json`;
 
 interface Awy {
     AWY_ID: string;
