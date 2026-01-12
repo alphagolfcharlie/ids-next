@@ -15,10 +15,10 @@ async function main() {
         await loadAirways();
         await loadCrossings();
         await loadFaaRoutes();
-        await loadEnroutes();
+        //await loadEnroutes();
         await loadFixes();
         await loadNavaids();
-        await loadRoutes();
+        //await loadRoutes();
         await loadSids();
         await loadStars();
         console.log("All scripts finished! Data seeded")

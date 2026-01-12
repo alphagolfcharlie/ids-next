@@ -60,15 +60,12 @@ model Airport {
 
 model Crossing {
   id              Int           @id @default(autoincrement())
-  field           String
   fields          String[]
   fix             String?
   restriction     String
   notes           String?
   artcc_giving    artcc_choices
   artcc_receiving artcc_choices
-
-  @@index([field])
 }
 
 // internal crossings/restrictions

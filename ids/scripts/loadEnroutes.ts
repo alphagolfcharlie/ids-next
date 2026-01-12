@@ -1,7 +1,7 @@
 import fs from 'fs';
 import {prisma} from "@/lib/prisma";
 
-const filePath: string = 'data/jsons/ids.enroute.json';
+const filePath: string = 'data/jsons/static/ids.enroute.json';
 
 interface EnrouteData {
     Field: string;

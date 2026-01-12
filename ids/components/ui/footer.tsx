@@ -83,7 +83,7 @@ export function Footer() {
                 </div> */}
 
                 <div className="text-center text-sm text-muted-foreground">
-                    <p>Site by Arya Chandrasekharan. These are not official materials of the virtual Cleveland ARTCC, nor the FAA, and are not for real-world use.</p>
+                    <p>Disclaimer: these are not official materials of the FAA, and are not for real-world use (VATSIM use only).</p>
                 </div>
             </div>
         </footer>

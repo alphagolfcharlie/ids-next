@@ -22,7 +22,7 @@ export function CrossingsInput() {
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const itemsPerPage = 3; 
+    const itemsPerPage = 5;
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = crossings.slice(indexOfFirstItem, indexOfLastItem);
@@ -84,7 +84,7 @@ export function CrossingsInput() {
                 <Input
                     id="destination"
                     type="text"
-                    placeholder="e.g. EWR or KEWR"
+                    placeholder="e.g. ATL or KATL"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value.toUpperCase())}
                     className="mt-2 border border-gray-300 dark:border-gray-700 focus:border-gray-500 focus:ring-1 focus:ring-gray-300 rounded-md"

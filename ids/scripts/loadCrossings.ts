@@ -3,14 +3,15 @@ import {PrismaClient, artcc_choices} from '@prisma/client';
 import {prisma} from "@/lib/prisma";
 
 
-const filePath: string = 'data/jsons/ids.crossings.json';
+const filePath: string = 'data/jsons/static/ids.crossings.json';
 
 interface CrossingsData {
-    destination: string;
+    fields: string;
     bdry_fix: string | null;
     restriction: string;
     notes: string | null;
-    artcc: string;
+    artcc_giving: string;
+    artcc_receiving: string;
 }
 
 export async function loadCrossings() {
@@ -22,12 +23,12 @@ export async function loadCrossings() {
         const data: CrossingsData[] = JSON.parse(jsonString);
 
         const sanitised = data.map(item => ({
-            field: item.destination,
+            fields: item.fields.split(','),
             fix: item.bdry_fix || null,
             restriction: item.restriction.toString(),
             notes: item.notes || null,
-            artcc_giving: "ZOB" as artcc_choices, // directly cast the string as an enum
-            artcc_receiving: item.artcc as artcc_choices
+            artcc_giving: "ZME" as artcc_choices, // directly cast the string as an enum
+            artcc_receiving: item.artcc_receiving as artcc_choices
         }));
 
         // for item in data, sanitised.append that ^

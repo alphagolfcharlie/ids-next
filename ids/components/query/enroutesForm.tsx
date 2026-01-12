@@ -68,7 +68,7 @@ export function EnrouteInput() {
                 <Input
                     id="field"
                     type="text"
-                    placeholder="e.g. BUF or KBUF"
+                    placeholder="e.g. MEM or KMEM"
                     value={field}
                     onChange={(e) => setField(e.target.value.toUpperCase())}
                     className="mt-2 border border-gray-300 dark:border-gray-700 focus:border-gray-500 focus:ring-1 focus:ring-gray-300 rounded-md"
@@ -165,7 +165,7 @@ export function EnrouteInput() {
                         !loading &&
                         searchField && (
                             <p className="text-gray-500">
-                                No enroute data found for {searchField}.
+                                No enroute data found for {searchField}. Data is still being added, please give us a ping if you feel something is missing!
                             </p>
                         )
                     )}

@@ -1,174 +1,4 @@
 {
-  "dtwrotg": [
-    {
-      "sid": "HHOWE#",
-      "gate": "MALTB",
-      "prefRwys": ["03L", "21R/L"],
-      "rotg": {
-        "21R/L": "WINRS",
-        "22L": "WINRS",
-        "22R": "WINRS",
-        "03L": "WNNGZ",
-        "03R": "WNNGZ",
-        "04R": "WNNGZ",
-        "04L": "WNNGZ"
-      }
-    },
-    {
-      "sid": "PAVYL#",
-      "gate": "SLVVA",
-      "prefRwys": ["03L", "21R/L"],
-      "rotg": {
-        "21R/L": "JOELU",
-        "22L": "JOELU",
-        "22R": "JOELU",
-        "03L": "WNNGZ",
-        "03R": "WNNGZ",
-        "04R": "WNNGZ",
-        "04L": "WNNGZ"
-      }
-    },
-    {
-      "sid": "LIDDS#",
-      "gate": "KZLOV",
-      "prefRwys": ["03L", "21R/L"],
-      "rotg": {
-        "21R/L": "JOELU",
-        "22L": "JOELU",
-        "22R": "JOELU",
-        "03L": "BESST",
-        "03R": "BESST",
-        "04R": "BESST",
-        "04L": "BESST"
-      }
-    },
-    {
-      "sid": "KZLOV#",
-      "gate": "KZLOV",
-      "prefRwys": ["03L", "21R/L"],
-      "rotg": {
-        "21R/L": "JOELU",
-        "22L": "JOELU",
-        "22R": "JOELU",
-        "03L": "BESST",
-        "03R": "BESST",
-        "04R": "BESST",
-        "04L": "BESST"
-      }
-    },
-    {
-      "sid": "CLVIN#",
-      "gate": "PHAUL",
-      "prefRwys": ["03L", "21R/L", "04R", "22L"],
-      "rotg": {
-        "21R/L": "SERGY",
-        "22L": "BOOSE",
-        "22R": "EEERI",
-        "03L": "BESST",
-        "03R": "BESST",
-        "04R": "NITRN",
-        "04L": "NITRN"
-      }
-    },
-    {
-      "sid": "BARII#",
-      "gate": "HUUTZ",
-      "prefRwys": ["03L", "21R/L", "04R", "22L"],
-      "rotg": {
-        "21R/L": "SERGY",
-        "22L": "BOOSE",
-        "22R": "EEERI",
-        "03L": "BESST",
-        "03R": "BESST",
-        "04R": "NITRN",
-        "04L": "NITRN"
-      }
-    },
-    {
-      "sid": "SNDRS#",
-      "gate": "JWELS",
-      "prefRwys": ["03L", "21R/L", "04R", "22L"],
-      "rotg": {
-        "21R/L": "SERGY",
-        "22L": "BOOSE",
-        "22R": "EEERI",
-        "03L": "BESST",
-        "03R": "BESST",
-        "04R": "NITRN",
-        "04L": "NITRN"
-      }
-    },
-    {
-      "sid": "CCOBB#",
-      "gate": "BROZZ",
-      "prefRwys": ["04R", "22L"],
-      "rotg": {
-        "21R/L": "SAAMS",
-        "22L": "SAAMS",
-        "22R": "SAAMS",
-        "03L": "NITRN",
-        "03R": "NITRN",
-        "04R": "NITRN",
-        "04L": "NITRN"
-      }
-    },
-    {
-      "sid": "KAYLN#",
-      "gate": "MTRCT",
-      "prefRwys": ["04R", "22L"],
-      "rotg": {
-        "21R/L": "SAAMS",
-        "22L": "SAAMS",
-        "22R": "SAAMS",
-        "03L": "SHEVY",
-        "03R": "SHEVY",
-        "04R": "SHEVY",
-        "04L": "SHEVY"
-      }
-    },
-    {
-      "sid": "MIGGY#",
-      "gate": "JAXII",
-      "prefRwys": ["04R", "22L"],
-      "rotg": {
-        "21R/L": "FORDZ",
-        "22L": "FORDZ",
-        "22R": "FORDZ",
-        "03L": "LLOUU",
-        "03R": "LLOUU",
-        "04R": "LLOUU",
-        "04L": "LLOUU"
-      }
-    },
-    {
-      "sid": "TRMML#",
-      "gate": "LOALA",
-      "prefRwys": ["04R", "22L"],
-      "rotg": {
-        "21R/L": "WINRS",
-        "22L": "FORDZ",
-        "22R": "FORDZ",
-        "03L": "DCATS",
-        "03R": "BURPZ",
-        "04R": "KKELL",
-        "04L": "MINDY"
-      }
-    },
-    {
-      "sid": "ZETTR#",
-      "gate": "FLOKA",
-      "prefRwys": ["04R", "22L"],
-      "rotg": {
-        "21R/L": "WINRS",
-        "22L": "FORDZ",
-        "22R": "FORDZ",
-        "03L": "DCATS",
-        "03R": "BURPZ",
-        "04R": "KKELL",
-        "04L": "MINDY"
-      }
-    }
-  ],
   "memrotg": [
     {
       "sid": "AUTMN#",
@@ -225,73 +55,201 @@
         "09": "RWY-HDG",
         "27": "RWY-HDG"
       }
-    }
-
-  ],
-  "metrosid": [
+    },
     {
-      "name": "MAARS (E)",
-      "type": "MAARS",
-      "headings": {
-        "Gate": "MAARS (E)",
-        "21R": "150°",
-        "22L": "",
-        "03L": "120°",
-        "04R": "",
-        "27L": "180°",
-        "27R": ""
+      "sid": "GRRIZ#",
+      "type": "night",
+      "gate": "FHLPS",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "DLONG",
+        "36C/R": "DLONG",
+        "18L/C": "CHETO",
+        "18R": "CHETO",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
       }
     },
     {
-      "name": "ANNTS (SW)",
-      "type": "ANNTS",
-      "headings": {
-        "Gate": "ANNTS (SW)",
-        "21R": "",
-        "22L": "260°",
-        "03L": "",
-        "04R": "310°",
-        "27L": "180°",
-        "27R": ""
+      "sid": "HOTRD#",
+      "type": "night",
+      "gate": "ZELKO",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "BEEAL",
+        "36C/R": "BEEAL",
+        "18L/C": "CHETO",
+        "18R": "CHETO",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
       }
     },
     {
-      "name": "HARWL (W) AoB FL220",
-      "type": "HARWL",
-      "headings": {
-        "Gate": "HARWL (W) AoB FL220",
-        "21R": "",
-        "22L": "260°",
-        "03L": "",
-        "04R": "310°",
-        "27L": "",
-        "27R": "360°"
+      "sid": "NIKEI#",
+      "type": "night",
+      "gate": "LRNCE",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "BEEAL",
+        "36C/R": "BEEAL",
+        "18L/C": "CHETO",
+        "18R": "CHETO",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
       }
     },
     {
-      "name": "DUNKS (W)",
-      "type": "DUNKS",
-      "headings": {
-        "Gate": "DUNKS (W)",
-        "21R": "",
-        "22L": "260°",
-        "03L": "",
-        "04R": "310°",
-        "27L": "",
-        "27R": "360°"
+      "sid": "OLEMS#",
+      "type": "night",
+      "gate": "CASLN",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "BEEAL",
+        "36C/R": "BEEAL",
+        "18L/C": "GADEC",
+        "18R": "EMIIT",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
       }
     },
     {
-      "name": "PISTN (N)",
-      "type": "PISTN",
-      "headings": {
-        "Gate": "PISTN (N)",
-        "21R": "",
-        "22L": "260°",
-        "03L": "",
-        "04R": "330°",
-        "27L": "",
-        "27R": "360°"
+      "sid": "AZONE#",
+      "type": "day",
+      "gate": "TOWND",
+      "prefRwys": ["36C", "18C"],
+      "rotg": {
+        "36L": "JAAXX",
+        "36C/R": "JAAXX",
+        "18L/C": "RIBZZ",
+        "18R": "RIBZZ",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "BBKNG#",
+      "type": "day",
+      "gate": "LEOOO",
+      "prefRwys": ["36C", "18C"],
+      "rotg": {
+        "36L": "JAAXX",
+        "36C/R": "JAAXX",
+        "18L/C": "RIBZZ",
+        "18R": "RIBZZ",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "CHLDR#",
+      "type": "day",
+      "gate": "PEPOC",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "BEEAL",
+        "36C/R": "BEEAL",
+        "18L/C": "CHETO",
+        "18R": "CHETO",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "CRSON#",
+      "type": "day",
+      "gate": "LYZZI",
+      "prefRwys": ["36C", "18C"],
+      "rotg": {
+        "36L": "SLONN",
+        "36C/R": "SLONN",
+        "18L/C": "RIBZZ",
+        "18R": "RIBZZ",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "DUCKZ#",
+      "type": "day",
+      "gate": "WSTIN",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "BEEAL",
+        "36C/R": "BEEAL",
+        "18L/C": "CHETO",
+        "18R": "CHETO",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "GOETZ#",
+      "type": "day",
+      "gate": "DOUUG",
+      "prefRwys": ["36C", "18C"],
+      "rotg": {
+        "36L": "JAAXX",
+        "36C/R": "JAAXX",
+        "18L/C": "RIBZZ",
+        "18R": "RIBZZ",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "JTEEE#",
+      "type": "day",
+      "gate": "HSTON",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "DLONG",
+        "36C/R": "DLONG",
+        "18L/C": "CHETO",
+        "18R": "CHETO",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "PIEPE#",
+      "type": "day",
+      "gate": "BEBIE",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "BEEAL",
+        "36C/R": "BEEAL",
+        "18L/C": "GADEC",
+        "18R": "EMIIT",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "SELPH#",
+      "type": "day",
+      "gate": "BETYY",
+      "prefRwys": ["36C", "18C"],
+      "rotg": {
+        "36L": "SLONN",
+        "36C/R": "SLONN",
+        "18L/C": "RIBZZ",
+        "18R": "RIBZZ",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "ZUMIT#",
+      "type": "day",
+      "gate": "STVVV",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "BEEAL",
+        "36C/R": "BEEAL",
+        "18L/C": "CHETO",
+        "18R": "CHETO",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
       }
     }
   ]

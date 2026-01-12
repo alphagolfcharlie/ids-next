@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "vZOB miniIDS",
-  description: "Virtual Information Display System (vIDS) made for virtual ZOB",
+  title: "vZME IDS",
+  description: "Virtual Information Display System (vIDS) made for the virtual Memphis ARTCC",
 };
 
 export default function RootLayout({

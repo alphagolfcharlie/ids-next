@@ -93,15 +93,15 @@ export function LoadAircraft({ map }: { map: L.Map | null }) {
 
                 data.forEach((aircraft) => {
                     if (aircraft.latitude && aircraft.longitude) {
-                        const isZobDeparture = AIRPORTS.includes(aircraft.departure);
-                        const isZobArrival = AIRPORTS.includes(aircraft.arrival);
+                        const isArtccDeparture = AIRPORTS.includes(aircraft.departure);
+                        const isArtccArrival = AIRPORTS.includes(aircraft.arrival);
                         const isVFR = aircraft.transponder.toString() === "1200" && !aircraft.arrival;
 
                         let color = "#FF6F00";
                         if (isVFR) color = "#ffffff";
-                        else if (isZobArrival && isZobDeparture) color = "#FF1744";
-                        else if (isZobDeparture) color = "#00BFFF";
-                        else if (isZobArrival) color = "#FFD700";
+                        else if (isArtccArrival && isArtccDeparture) color = "#FF1744";
+                        else if (isArtccDeparture) color = "#00BFFF";
+                        else if (isArtccArrival) color = "#FFD700";
 
                         const icon = makeAircraftIcon(color, aircraft.heading ?? 0);
 

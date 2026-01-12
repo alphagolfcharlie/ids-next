@@ -26,7 +26,7 @@ export default function IDSPage() {
                                 <TabsList className="w-full justify-center">
                                     <TabsTrigger value="routing">Routing</TabsTrigger>
                                     <TabsTrigger value="crossings">Ext. LOAs</TabsTrigger>
-                                    <TabsTrigger value="internalcrossings">Int. LOAs</TabsTrigger>
+                                    {/*<TabsTrigger value="internalcrossings">Int. LOAs</TabsTrigger>*/}
                                     <TabsTrigger value="info">ATIS/WX</TabsTrigger>
                                     <TabsTrigger value="waypoints">ROTG</TabsTrigger>
                                 </TabsList>
@@ -37,9 +37,9 @@ export default function IDSPage() {
                                 <TabsContent value="crossings">
                                     <CrossingsInput />
                                 </TabsContent>
-                                <TabsContent value="internalcrossings">
+                                {/*<TabsContent value="internalcrossings">
                                     <EnrouteInput />
-                                </TabsContent>
+                                </TabsContent>*/}
                                 <TabsContent value="info">
                                     <StatusCards />
                                 </TabsContent>
