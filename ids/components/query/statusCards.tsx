@@ -14,8 +14,10 @@ type ParsedAtis = {
     fullText: string[];
 };
 
-const AIRPORTS = ["KDTW", "KCLE", "KPIT", "KBUF"];
-
+const AIRPORTS = (process.env.ATIS_ICAOS ?? '')
+    .split(',')
+    .map(i => i.trim().toUpperCase())
+    .filter(Boolean);
 
 export function StatusCards() {
     const [data, setData] = useState<ParsedAtis[]>([]);
@@ -31,7 +33,7 @@ export function StatusCards() {
                 const res = await fetch("/api/ids/airportinfo");
                 if (!res.ok) throw new Error("Failed to fetch ATIS data");
                 const json = await res.json();
-                setData(json.data.filter((d: ParsedAtis) => AIRPORTS.includes(d.airport)));
+                setData(json.data);
             } catch (err: any) {
                 setError(err.message || "Unknown error");
             } finally {

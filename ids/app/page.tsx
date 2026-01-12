@@ -7,7 +7,7 @@ import {EnrouteInput} from "@/components/query/enroutesForm";
 import {StatusCards} from "@/components/query/statusCards";
 import dynamic from "next/dynamic";
 import {RoutePlannerProvider} from "@/components/map/routePlannerContext";
-import {Waypoints} from "@/components/query/waypoints";
+import {DtwWaypoints} from "@/components/query/waypoints";
 import {FlowProvider} from "@/components/query/flowContext";
 
 const MapView = dynamic(
@@ -44,7 +44,7 @@ export default function IDSPage() {
                                     <StatusCards />
                                 </TabsContent>
                                 <TabsContent value="waypoints">
-                                    <Waypoints />
+                                    <DtwWaypoints />
                                 </TabsContent>
 
                             </Tabs>

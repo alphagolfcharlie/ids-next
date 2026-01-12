@@ -28,7 +28,7 @@ type WaypointsJson = {
 
 const WAYPOINTS_DATA: WaypointsJson = waypointsData;
 
-export function Waypoints() {
+export function DtwWaypoints() {
     const { currentFlow, toggleFlow } = useFlow();
 
     // Define runway sets by flow

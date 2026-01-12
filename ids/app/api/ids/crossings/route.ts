@@ -1,5 +1,6 @@
 import {NextRequest} from "next/server";
 import {prisma} from "@/lib/prisma";
+import {artcc_choices} from "@prisma/client";
 
 export async function GET(request: NextRequest) {
 
@@ -26,7 +27,10 @@ export async function GET(request: NextRequest) {
 
     const crossings = await prisma.crossing.findMany({
         where: {
-            field: field
+            fields: {
+                has: field
+            },
+            artcc_giving: (process.env.ARTCC as artcc_choices)
         }
     })
     return new Response(JSON.stringify(crossings), {

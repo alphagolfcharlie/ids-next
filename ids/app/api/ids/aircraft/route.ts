@@ -1,5 +1,6 @@
 import {NextResponse} from "next/server";
 import { Redis } from '@upstash/redis';
+import artccMapViews from "@/data/jsons/static/artccMapViews.json"
 
 const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL!,
@@ -19,8 +20,9 @@ type Aircraft = {
     arrival: string
 }
 
+
 const VATSIM_API_URL = "https://data.vatsim.net/v3/vatsim-data.json"
-const CACHE_TTL_SECONDS = 60; // 1 min TTL
+const CACHE_TTL_SECONDS = 60; // 1 min TTL (5s for testing)
 
 // return distance in nmi
 
@@ -47,25 +49,45 @@ function distance(lat1: number, lon1: number, lat2: number, lon2: number): numbe
 }
 
 
+// Get ARTCC with multiple fallbacks
+function getArtcc(): string {
+    const artcc = process.env.ARTCC ||
+        process.env.NEXT_PUBLIC_ARTCC ||
+        'ZME'; // Default fallback
+    return artcc.toUpperCase();
+}
+
+
 export async function GET() {
     try {
+        const artcc = getArtcc();
+        const cacheKey = `aircraft_${artcc}`;
 
-        const cached = await redis.get<Aircraft[]>("aircraft");
+        // Check cache with ARTCC-specific key
+        const cached = await redis.get<Aircraft[]>(cacheKey);
 
         if (cached) {
-            // serve from cache
+            console.log(`[AIRCRAFT] Serving from cache for ${artcc}`);
             return NextResponse.json({
-                source: "cache", count:
-                cached.length,
-                aircraft: cached
+                source: "cache",
+                count: cached.length,
+                aircraft: cached,
+                artcc: artcc
             })
         }
 
-        const lat = 41.21
-        const lon = -82.94
+        console.log(`[AIRCRAFT] Cache miss for ${artcc}, fetching live data`);
+
+        const fallback: [number, number] = [41.21, -82.94];
+        const center = artccMapViews[artcc as keyof typeof artccMapViews]?.center ?? fallback;
+
+        console.log(`[AIRCRAFT] Using ARTCC: ${artcc}`);
+        console.log(`[AIRCRAFT] Center coordinates: ${center}`);
+        console.log(`[AIRCRAFT] Available ARTCCs: ${Object.keys(artccMapViews).join(', ')}`);
+
+        const lat = center[0]
+        const lon = center[1]
         const distanceNM = 500
-
-
 
         // Fetch data from VATSIM
         const res = await fetch(VATSIM_API_URL);
@@ -92,14 +114,16 @@ export async function GET() {
                 arrival: pilot.flight_plan?.arrival || null,
             }));
 
-        // update the cache
+        // Update the cache with ARTCC-specific key
+        await redis.set(cacheKey, aircraft, { ex: CACHE_TTL_SECONDS});
 
-        await redis.set("aircraft", JSON.stringify(aircraft), { ex: CACHE_TTL_SECONDS})
+        console.log(`[AIRCRAFT] Cached ${aircraft.length} aircraft for ${artcc}`);
 
         return NextResponse.json({
             source: "live",
             count: aircraft.length,
-            aircraft: aircraft
+            aircraft: aircraft,
+            artcc: artcc
         });
 
     } catch (error: any) {

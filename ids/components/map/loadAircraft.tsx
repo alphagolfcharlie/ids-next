@@ -61,11 +61,10 @@ export function LoadAircraft({ map }: { map: L.Map | null }) {
         }
 
         const aircraftLayerGroup = layerRef.current;
-        const ZOB_AIRPORTS = [
-            "KBUF", "KCLE", "KDTW", "KPIT", "KROC", "KIAG",
-            "KERI", "KBKL", "KCGF", "KCAK", "KMFD", "KPTK",
-            "KYIP", "KDET", "KTOL", "KAGC"
-        ];
+        const AIRPORTS: string[] = (process.env.NEXT_PUBLIC_AIRPORTS ?? "")
+            .split(",")
+            .map(a => a.trim().toUpperCase())
+            .filter(Boolean);
 
         let cancelled = false;
 
@@ -94,8 +93,8 @@ export function LoadAircraft({ map }: { map: L.Map | null }) {
 
                 data.forEach((aircraft) => {
                     if (aircraft.latitude && aircraft.longitude) {
-                        const isZobDeparture = ZOB_AIRPORTS.includes(aircraft.departure);
-                        const isZobArrival = ZOB_AIRPORTS.includes(aircraft.arrival);
+                        const isZobDeparture = AIRPORTS.includes(aircraft.departure);
+                        const isZobArrival = AIRPORTS.includes(aircraft.arrival);
                         const isVFR = aircraft.transponder.toString() === "1200" && !aircraft.arrival;
 
                         let color = "#FF6F00";

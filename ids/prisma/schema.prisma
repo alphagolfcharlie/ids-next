@@ -61,6 +61,7 @@ model Airport {
 model Crossing {
   id              Int           @id @default(autoincrement())
   field           String
+  fields          String[]
   fix             String?
   restriction     String
   notes           String?

@@ -8,6 +8,12 @@ import { LoadAircraft } from "./loadAircraft";
 import {RoutePlanner} from "@/components/map/routePlotter";
 import type {Feature} from "geojson";
 
+import artccMapViews from "@/data/jsons/static/artccMapViews.json"
+
+type ArtccMapView = {
+    center: [number, number];
+    zoom: number;
+};
 
 export function MapView() {
     const { theme } = useTheme();
@@ -84,7 +90,20 @@ export function MapView() {
         import("leaflet").then((LModule) => {
             const L = LModule;
 
-            const map = L.map(mapContainer).setView([41.5346, -80.6708], 6);
+            const ARTCC_MAP_VIEWS = artccMapViews as unknown as Record<string, ArtccMapView>;
+
+            const facility = (process.env.NEXT_PUBLIC_ARTCC || "").toUpperCase();
+
+            console.log(facility || "facility not detected")
+
+            const defaultView: ArtccMapView = {
+                center: [41.5346, -80.6708],
+                zoom: 6,
+            };
+
+            const view = ARTCC_MAP_VIEWS[facility] ?? defaultView;
+
+            const map = L.map(mapContainer).setView(view.center, view.zoom);
             mapRef.current = map;
 
             map.createPane("artccPane").style.zIndex = "400";

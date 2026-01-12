@@ -169,6 +169,65 @@
       }
     }
   ],
+  "memrotg": [
+    {
+      "sid": "AUTMN#",
+      "type": "night",
+      "gate": "SHAAA",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "BEEAL",
+        "36C/R": "BEEAL",
+        "18L/C": "GADEC",
+        "18R": "HURTN",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "BINKY#",
+      "type": "night",
+      "gate": "IMABE",
+      "prefRwys": ["36L", "18R"],
+      "rotg": {
+        "36L": "BEEAL",
+        "36C/R": "BEEAL",
+        "18L/C": "GADEC",
+        "18R": "HURTN",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "GENEH#",
+      "type": "night",
+      "gate": "BASAC",
+      "prefRwys": ["36C", "18C"],
+      "rotg": {
+        "36L": "SLONN",
+        "36C/R": "SLONN",
+        "18L/C": "RIBZZ",
+        "18R": "RIBZZ",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "GMBUD#",
+      "type": "night",
+      "gate": "CUVDO",
+      "prefRwys": ["36C", "18C"],
+      "rotg": {
+        "36L": "JAAXX",
+        "36C/R": "JAAXX",
+        "18L/C": "RIBZZ",
+        "18R": "RIBZZ",
+        "09": "RWY-HDG",
+        "27": "RWY-HDG"
+      }
+    }
+
+  ],
   "metrosid": [
     {
       "name": "MAARS (E)",
