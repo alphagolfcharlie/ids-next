@@ -3,7 +3,7 @@
     {
       "sid": "AUTMN#",
       "type": "night",
-      "gate": "SHAAA/SFOUR",
+      "gate": "SFOUR",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "BEEAL",
@@ -17,7 +17,7 @@
     {
       "sid": "BINKY#",
       "type": "night",
-      "gate": "IMABE/STREE",
+      "gate": "STREE",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "BEEAL",
@@ -31,7 +31,7 @@
     {
       "sid": "GENEH#",
       "type": "night",
-      "gate": "BASAC/NFIVE",
+      "gate": "NFIVE",
       "prefRwys": ["36C", "18C"],
       "rotg": {
         "36L": "SLONN",
@@ -45,7 +45,7 @@
     {
       "sid": "GMBUD#",
       "type": "night",
-      "gate": "CUVDO/EFOUR",
+      "gate": "EFOUR",
       "prefRwys": ["36C", "18C"],
       "rotg": {
         "36L": "JAAXX",
@@ -59,7 +59,7 @@
     {
       "sid": "GRRIZ#",
       "type": "night",
-      "gate": "FHLPS/NRONE",
+      "gate": "NRONE",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "DLONG",
@@ -73,7 +73,7 @@
     {
       "sid": "HOTRD#",
       "type": "night",
-      "gate": "ZELKO/WFIVE",
+      "gate": "WFIVE",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "BEEAL",
@@ -87,7 +87,7 @@
     {
       "sid": "NIKEI#",
       "type": "night",
-      "gate": "LRNCE/WFOUR",
+      "gate": "WFOUR",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "BEEAL",
@@ -101,7 +101,7 @@
     {
       "sid": "OLEMS#",
       "type": "night",
-      "gate": "CASLN/SONEI",
+      "gate": "SONEI",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "BEEAL",
@@ -115,7 +115,7 @@
     {
       "sid": "AZONE#",
       "type": "day",
-      "gate": "TOWND/ETWOO",
+      "gate": "ETWOO",
       "prefRwys": ["36C", "18C"],
       "rotg": {
         "36L": "JAAXX",
@@ -129,7 +129,7 @@
     {
       "sid": "BBKNG#",
       "type": "day",
-      "gate": "LEOOO/ETREE",
+      "gate": "ETREE",
       "prefRwys": ["36C", "18C"],
       "rotg": {
         "36L": "JAAXX",
@@ -143,7 +143,7 @@
     {
       "sid": "CHLDR#",
       "type": "day",
-      "gate": "PEPOC/WONEE",
+      "gate": "WONEE",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "BEEAL",
@@ -157,7 +157,7 @@
     {
       "sid": "CRSON#",
       "type": "day",
-      "gate": "LYZZI/NFOUR",
+      "gate": "NFOUR",
       "prefRwys": ["36C", "18C"],
       "rotg": {
         "36L": "SLONN",
@@ -171,7 +171,7 @@
     {
       "sid": "DUCKZ#",
       "type": "day",
-      "gate": "WSTIN/WTWOO",
+      "gate": "WTWOO",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "BEEAL",
@@ -185,7 +185,7 @@
     {
       "sid": "GOETZ#",
       "type": "day",
-      "gate": "DOUUG/EONEE",
+      "gate": "EONEE",
       "prefRwys": ["36C", "18C"],
       "rotg": {
         "36L": "JAAXX",
@@ -199,7 +199,7 @@
     {
       "sid": "JTEEE#",
       "type": "day",
-      "gate": "HSTON/NTWOO",
+      "gate": "NTWOO",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "DLONG",
@@ -213,7 +213,7 @@
     {
       "sid": "PIEPE#",
       "type": "day",
-      "gate": "BEBIE/STWOO",
+      "gate": "STWOO",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "BEEAL",
@@ -227,7 +227,7 @@
     {
       "sid": "SELPH#",
       "type": "day",
-      "gate": "BETYY/NTREE",
+      "gate": "NTREE",
       "prefRwys": ["36C", "18C"],
       "rotg": {
         "36L": "SLONN",
@@ -241,7 +241,7 @@
     {
       "sid": "ZUMIT#",
       "type": "day",
-      "gate": "STVVV/WTREE",
+      "gate": "WTREE",
       "prefRwys": ["36L", "18R"],
       "rotg": {
         "36L": "BEEAL",
