@@ -71,7 +71,7 @@ export function Navbar() {
                                             </a>
                                         </NavigationMenuLink>
                                         <NavigationMenuLink asChild>
-                                            <a target="_blank" href="https://github.com">
+                                            <a target="_blank" href="https://github.com/alphagolfcharlie/ids-next">
                                                 <div className="font-medium flex items-center gap-2">
                                                     <CodeXml className="w-4 h-4" />
                                                     Github
