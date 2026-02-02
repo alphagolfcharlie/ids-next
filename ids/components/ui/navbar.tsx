@@ -47,23 +47,7 @@ export function Navbar() {
                                 <ul className="grid w-[200px] gap-4">
                                     <li>
                                         <NavigationMenuLink asChild>
-                                            <a target="_blank" href="https://refs.clevelandcenter.org">
-                                                <div className="font-medium flex items-center gap-2">
-                                                    <FileSliders className="w-4 h-4" />
-                                                    vZOB References
-                                                </div>
-                                            </a>
-                                        </NavigationMenuLink>
-                                        <NavigationMenuLink asChild>
-                                            <a target="_blank" href="https://clevelandcenter.org/splits">
-                                                <div className="font-medium flex items-center gap-2">
-                                                    <LandPlotIcon className="w-4 h-4" />
-                                                    Active Split
-                                                </div>
-                                            </a>
-                                        </NavigationMenuLink>
-                                        <NavigationMenuLink asChild>
-                                            <a target="_blank" href="https://clevelandcenter.org/downloads">
+                                            <a target="_blank" href="https://memphisartcc.com/files/documents">
                                                 <div className="font-medium flex items-center gap-2">
                                                     <BookText className="w-4 h-4" />
                                                     SOPs/LOAs
