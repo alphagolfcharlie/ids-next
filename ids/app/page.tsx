@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import {RoutePlannerProvider} from "@/components/map/routePlannerContext";
 import {MemWaypoints, BnaWaypoints} from "@/components/query/waypoints";
 import {FlowProvider} from "@/components/query/flowContext";
+import {Separator} from "@/components/ui/separator";
 
 const MapView = dynamic(
     () => import("@/components/map/mapView").then((mod) => mod.MapView),
@@ -45,6 +46,7 @@ export default function IDSPage() {
                                 </TabsContent>
                                 <TabsContent value="waypoints">
                                     <MemWaypoints />
+                                    <Separator className="my-4 bg-secondary" />
                                     <BnaWaypoints />
                                 </TabsContent>
 
