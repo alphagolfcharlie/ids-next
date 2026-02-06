@@ -1,32 +1,40 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
 
-type FlowType = 'north' | 'south';
+type Airport = "MEM" | "BNA";
+type FlowType = "north" | "south";
 
 interface FlowContextType {
-    currentFlow: FlowType;
-    setCurrentFlow: (flow: FlowType) => void;
-    toggleFlow: () => void;
+    flows: Record<Airport, FlowType>;
+    setFlow: (airport: Airport, flow: FlowType) => void;
+    toggleFlow: (airport: Airport) => void;
 }
 
 const FlowContext = createContext<FlowContextType | undefined>(undefined);
 
 export function FlowProvider({ children }: { children: ReactNode }) {
-    const [currentFlow, setCurrentFlow] = useState<FlowType>('south');
+    const [flows, setFlows] = useState<Record<Airport, FlowType>>({
+        MEM: "south",
+        BNA: "south",
+    });
 
-    const toggleFlow = () => {
-        setCurrentFlow(prev => prev === 'north' ? 'south' : 'north');
+    const setFlow = (airport: Airport, flow: FlowType) => {
+        setFlows(prev => ({
+            ...prev,
+            [airport]: flow,
+        }));
     };
 
-    const value = {
-        currentFlow,
-        setCurrentFlow,
-        toggleFlow,
+    const toggleFlow = (airport: Airport) => {
+        setFlows(prev => ({
+            ...prev,
+            [airport]: prev[airport] === "north" ? "south" : "north",
+        }));
     };
 
     return (
-        <FlowContext.Provider value={value}>
+        <FlowContext.Provider value={{ flows, setFlow, toggleFlow }}>
             {children}
         </FlowContext.Provider>
     );
@@ -34,8 +42,8 @@ export function FlowProvider({ children }: { children: ReactNode }) {
 
 export function useFlow() {
     const context = useContext(FlowContext);
-    if (context === undefined) {
-        throw new Error('useFlow must be used within a FlowProvider');
+    if (!context) {
+        throw new Error("useFlow must be used within a FlowProvider");
     }
     return context;
 }

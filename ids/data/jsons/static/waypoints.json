@@ -252,5 +252,133 @@
         "27": "RWY-HDG"
       }
     }
+  ],
+  "bnarotg": [
+    {
+      "sid": "CHADM#",
+      "type": "all",
+      "gate": "",
+      "prefRwys": ["2R", "20C"],
+      "rotg": {
+        "2R": "SHWIT",
+        "2L": "SHWIT",
+        "20C": "FIDLL",
+        "20R": "FIDLL",
+        "13": "RWY-HDG",
+        "31": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "DANLS#",
+      "type": "all",
+      "gate": "",
+      "prefRwys": ["2L", "20R"],
+      "rotg": {
+        "2L": "FRNCS",
+        "2R": "FRNCS",
+        "20R": "BUBYY",
+        "20C": "BUBYY",
+        "13": "RWY-HDG",
+        "31": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "DRURY#",
+      "type": "all",
+      "gate": "",
+      "prefRwys": ["2L", "20R"],
+      "rotg": {
+        "2L": "FRNCS",
+        "2R": "FRNCS",
+        "20R": "DIXII",
+        "20C": "DIXII",
+        "13": "RWY-HDG",
+        "31": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "FLAME#",
+      "type": "all",
+      "gate": "",
+      "prefRwys": ["2R", "20C"],
+      "rotg": {
+        "2R": "SHWIT",
+        "2L": "SHWIT",
+        "20C": "DIXII",
+        "20R": "DIXII",
+        "13": "RWY-HDG",
+        "31": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "GDOGG#",
+      "type": "all",
+      "gate": "",
+      "prefRwys": ["2L", "20R"],
+      "rotg": {
+        "2L": "JATII",
+        "2R": "JATII",
+        "20R": "BUBYY",
+        "20C": "BUBYY",
+        "13": "RWY-HDG",
+        "31": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "KRSTA#",
+      "type": "all",
+      "gate": "",
+      "prefRwys": ["2L", "20R"],
+      "rotg": {
+        "2L": "JATII",
+        "2R": "JATII",
+        "20R": "BUBYY",
+        "20C": "BUBYY",
+        "13": "RWY-HDG",
+        "31": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "PARDN#",
+      "type": "all",
+      "gate": "",
+      "prefRwys": ["2L", "20R"],
+      "rotg": {
+        "2L": "FRNCS",
+        "2R": "FRNCS",
+        "20R": "BUBYY",
+        "20C": "BUBYY",
+        "13": "RWY-HDG",
+        "31": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "TAZMO#",
+      "type": "all",
+      "gate": "",
+      "prefRwys": ["2R", "20C"],
+      "rotg": {
+        "2R": "SHWIT",
+        "2L": "SHWIT",
+        "20C": "FIDLL",
+        "20R": "FIDLL",
+        "13": "RWY-HDG",
+        "31": "RWY-HDG"
+      }
+    },
+    {
+      "sid": "TIPPN#",
+      "type": "all",
+      "gate": "",
+      "prefRwys": ["2R", "20C"],
+      "rotg": {
+        "2R": "SHWIT",
+        "2L": "SHWIT",
+        "20C": "DIXII",
+        "20R": "DIXII",
+        "13": "RWY-HDG",
+        "31": "RWY-HDG"
+      }
+    }
   ]
 }
